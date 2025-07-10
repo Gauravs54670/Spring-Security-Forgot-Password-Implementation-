@@ -20,7 +20,7 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
-    //create
+    //User sign up
     @PostMapping("/sign-up")
     public ResponseEntity<?> createUser(@RequestBody UserSignup userSignup) {
         try {
@@ -32,6 +32,7 @@ public class PublicController {
         } catch(Exception e) {
             Map<String, String> map = new HashMap<>();
             map.put("message","error in creating users");
+            map.put("response",e.getMessage());
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
     }

@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if(existUserEntity.getUserRoles().contains(userRole))
             throw new RuntimeException("Role is already assigned");
-        existUserEntity.setUserRoles(Set.of(userRole));
+        existUserEntity.getUserRoles().add(userRole);
         return convertToResponse(this.userRepository.save(existUserEntity));
     }
 
