@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -20,7 +21,10 @@ public class UserEntity {
     @Indexed(unique = true)
     private String password;
     private String fullName;
+    private String email;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
     private Set<UserRole> userRoles;
+    private String resetToken;
+    private Instant tokenExpiry;
 }

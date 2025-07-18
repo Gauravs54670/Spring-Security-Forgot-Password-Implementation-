@@ -13,5 +13,7 @@ public class UserSignup {
     private String username;
     @Indexed(unique = true)
     private String password;
+    @Indexed(unique = true)
+    private String email;
     private String fullName;
 }

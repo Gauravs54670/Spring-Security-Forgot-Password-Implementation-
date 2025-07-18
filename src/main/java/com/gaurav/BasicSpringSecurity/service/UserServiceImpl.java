@@ -56,6 +56,12 @@ public class UserServiceImpl implements UserService{
             userEntity.setUsername(userDTO.getUsername());
         if(userDTO.getFullName() != null && !userDTO.getFullName().isEmpty())
             userEntity.setFullName(userDTO.getFullName());
+        if(userDTO.getEmail() != null && !userDTO.getEmail().isEmpty()) {
+            boolean present = this.userRepository.findByEmail(userDTO.getEmail()).isPresent();
+            if(present)
+                throw new RuntimeException("Email is already exist please try again");
+            userEntity.setEmail(userDTO.getEmail());
+        }
         if(userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
             if(passwordEncoder.matches(userDTO.getPassword(),userEntity.getPassword()))
                 throw new RuntimeException("Entered password is same as previous password");
@@ -79,6 +85,7 @@ public class UserServiceImpl implements UserService{
         return UserEntity.builder()
                 .username(userSignup.getUsername())
                 .password(passwordEncoder.encode(userSignup.getPassword()))
+                .email(userSignup.getEmail())
                 .fullName(userSignup.getFullName())
                 .createdAt(LocalDateTime.now())
                 .lastLogin(LocalDateTime.now())
@@ -88,6 +95,7 @@ public class UserServiceImpl implements UserService{
     private UserResponse convertToResponse(UserEntity userEntity) {
         return UserResponse.builder()
                 .username(userEntity.getUsername())
+                .email(userEntity.getEmail())
                 .fullName(userEntity.getFullName())
                 .createdAt(userEntity.getCreatedAt())
                 .lastLogin(userEntity.getLastLogin())

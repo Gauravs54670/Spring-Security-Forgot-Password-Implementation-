@@ -11,6 +11,7 @@ import java.util.Set;
 @Builder
 public class UserResponse {
     private String username;
+    private String email;
     private String fullName;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
