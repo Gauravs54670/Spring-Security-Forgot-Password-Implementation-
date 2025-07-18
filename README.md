@@ -1,4 +1,6 @@
 📧 Forgot Password via Email
+
+
 1→ When a user forgets their password, they initiate a password reset by calling the POST /api/public/auth/forgot-password endpoint, providing their registered email in the request body. Since this is a public endpoint, it bypasses authentication checks.
 
 2→ The controller checks if a user with the provided email exists in the database. If found, a secure random 6-digit numeric token is generated and stored in the user's record along with a token expiry time (e.g., 10 minutes from now).
